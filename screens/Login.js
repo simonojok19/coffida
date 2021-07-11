@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Ionicons, Octicons } from '@expo/vector-icons';
 import {
+  ButtonText,
   Colors,
   InnerContainer,
   LeftIcon,
   PageLogo,
-  PageTitle, RightIcon,
+  PageTitle,
+  RightIcon,
+  StyledButton,
   StyledContainer,
   StyledFormArea,
   StyledInputLabel,
@@ -17,7 +20,7 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 
 const Login = () => {
-  const [hidePassword, setHidePassword] = useState(true)
+  const [hidePassword, setHidePassword] = useState(true);
   return (
     <StyledContainer>
       <StatusBar style='dark' />
@@ -56,6 +59,9 @@ const Login = () => {
               hidePassword={hidePassword}
               setHidePassword={setHidePassword}
             />
+            <StyledButton onPress={handleSubmit}>
+              <ButtonText>Login</ButtonText>
+            </StyledButton>
           </StyledFormArea>}
         </Formik>
       </InnerContainer>
@@ -73,7 +79,7 @@ const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, .
     <StyledTextInput {...props} />
     {isPassword && (
       <RightIcon onPress={() => setHidePassword(!hidePassword)}>
-        <Ionicons name={hidePassword ? 'md-eye-off': 'md-eye'} size={30} color={Colors.darkLight}/>
+        <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={30} color={Colors.darkLight} />
       </RightIcon>
     )}
   </View>);
