@@ -1,11 +1,11 @@
-import React from 'react';
-import { Octicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import {
   Colors,
   InnerContainer,
   LeftIcon,
   PageLogo,
-  PageTitle,
+  PageTitle, RightIcon,
   StyledContainer,
   StyledFormArea,
   StyledInputLabel,
@@ -17,6 +17,7 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 
 const Login = () => {
+  const [hidePassword, setHidePassword] = useState(true)
   return (
     <StyledContainer>
       <StatusBar style='dark' />
@@ -50,7 +51,10 @@ const Login = () => {
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
-              secureTextEntry={true}
+              secureTextEntry={hidePassword}
+              isPassword={true}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}
             />
           </StyledFormArea>}
         </Formik>
@@ -59,13 +63,19 @@ const Login = () => {
   );
 };
 
-const MyTextInput = ({ label, icon, ...props }) => {
+const MyTextInput = ({ label, icon, isPassword, hidePassword, setHidePassword, ...props }) => {
+
   return (<View>
     <StyledInputLabel>{label}</StyledInputLabel>
     <LeftIcon>
       <Octicons name={icon} size={30} color={Colors.brand} />
     </LeftIcon>
     <StyledTextInput {...props} />
+    {isPassword && (
+      <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+        <Ionicons name={hidePassword ? 'md-eye-off': 'md-eye'} size={30} color={Colors.darkLight}/>
+      </RightIcon>
+    )}
   </View>);
 };
 export default Login;
