@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Ionicons, Octicons, Fontisto } from '@expo/vector-icons';
 import {
   ButtonText,
-  Colors,
+  Colors, ExtraText,
   InnerContainer,
   LeftIcon, Line, MessageBox,
   PageLogo,
@@ -13,7 +13,7 @@ import {
   StyledFormArea,
   StyledInputLabel,
   StyledTextInput,
-  SubTitle,
+  SubTitle, TextLink, TextLinkContent,
 } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
@@ -68,6 +68,13 @@ const Login = () => {
               <Fontisto name="google" color={Colors.primary} size={25} />
               <ButtonText google={true}>Sign in with Google</ButtonText>
             </StyledButton>
+
+            <ExtraText>
+              <ExtraText>Don't have an account already?</ExtraText>
+              <TextLink>
+                <TextLinkContent>Signup</TextLinkContent>
+              </TextLink>
+            </ExtraText>
 
           </StyledFormArea>}
         </Formik>

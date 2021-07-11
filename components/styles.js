@@ -120,3 +120,28 @@ export const Line = styled.View`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
+
+export const ExtraView = styled.View`
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const ExtraText = styled.Text`
+  justify-content: center;
+  align-items: center;
+  color: ${tertiary};
+  font-size: 15px;
+`;
+
+export const TextLink = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextLinkContent = styled.Text`
+  color: ${brand};
+  font-size: 15px;
+  margin-left: 5px;
+`;
