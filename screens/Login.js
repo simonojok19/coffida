@@ -64,10 +64,6 @@ const Login = () => {
               <ButtonText>Login</ButtonText>
             </StyledButton>
             <Line />
-            <StyledButton onPress={handleSubmit} google={true}>
-              <Fontisto name="google" color={Colors.primary} size={25} />
-              <ButtonText google={true}>Sign in with Google</ButtonText>
-            </StyledButton>
 
             <ExtraText>
               <ExtraText>Don't have an account already?</ExtraText>
