@@ -73,7 +73,7 @@ export const StyledInputLabel = styled.Text`
 
 export const LeftIcon = styled.View`
   left: 15px;
-  top: 38px;
+  top: 35px;
   position: absolute;
   z-index: 1;
 `;

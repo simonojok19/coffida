@@ -1,5 +1,15 @@
 import React from 'react';
-import { InnerContainer, PageLogo, PageTitle, StyledContainer, StyledFormArea, SubTitle } from '../components/styles';
+import {Octicons} from '@expo/vector-icons';
+import {
+  Colors,
+  InnerContainer,
+  LeftIcon,
+  PageLogo,
+  PageTitle,
+  StyledContainer,
+  StyledFormArea, StyledInputLabel, StyledTextInput,
+  SubTitle,
+} from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { View } from 'react-native';
@@ -19,7 +29,16 @@ const Login = () => {
           }}
         >
           {({handleChange, handleBlur, handleSubmit, values}) => <StyledFormArea>
-
+            <MyTextInput
+              label="Email Address"
+              icon="mail"
+              placeholder="johndoe@example.com"
+              placeholderTextColor={Colors.darkLight}
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              keyboardType="email-address"
+              value={values.email}
+            />
           </StyledFormArea>}
         </Formik>
       </InnerContainer>
@@ -29,7 +48,11 @@ const Login = () => {
 
 const MyTextInput = ({label, icon, ...props}) => {
   return (<View>
-
+    <LeftIcon>
+      <Octicons name={icon} size={30} color={Colors.brand}/>
+    </LeftIcon>
+    <StyledInputLabel>{label}</StyledInputLabel>
+    <StyledTextInput {...props} />
   </View>)
 }
 export default Login;
