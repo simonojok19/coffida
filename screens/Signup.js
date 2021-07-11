@@ -32,7 +32,7 @@ const SignUp = () => {
             last_name: '',
             first_name: '',
             email: '',
-            password: '',
+            password1: '',
             password2: ''
           }}
           onSubmit={(values) => {
@@ -42,7 +42,7 @@ const SignUp = () => {
           {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
             <MyTextInput
               label='First Name'
-              icon='mail'
+              icon='person'
               placeholder='John'
               placeholderTextColor={Colors.darkLight}
               onChangeText={handleChange('first_name')}
@@ -51,7 +51,7 @@ const SignUp = () => {
             />
             <MyTextInput
               label='Last Name'
-              icon='mail'
+              icon='person'
               placeholder='Doe'
               placeholderTextColor={Colors.darkLight}
               onChangeText={handleChange('last_name')}
@@ -74,9 +74,9 @@ const SignUp = () => {
               icon='lock'
               placeholder='* * * * * * * *'
               placeholderTextColor={Colors.darkLight}
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
+              onChangeText={handleChange('password1')}
+              onBlur={handleBlur('password1')}
+              value={values.password1}
               secureTextEntry={hidePassword}
               isPassword={true}
               hidePassword={hidePassword}
