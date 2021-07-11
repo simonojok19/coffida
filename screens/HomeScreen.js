@@ -1,3 +1,4 @@
+import React from 'react';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import { Text, View } from 'react-native';
 

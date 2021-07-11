@@ -26,7 +26,7 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [hidePassword, setHidePassword] = useState(true);
   return (
     <KeyboardAvoidingWrapper>
@@ -40,6 +40,7 @@ const Login = () => {
             initialValues={{ email: '', password: '' }}
             onSubmit={(values) => {
               console.log(values);
+              navigation.navigate("HomeScreen")
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
@@ -75,7 +76,7 @@ const Login = () => {
 
               <ExtraView>
                 <ExtraText>Don't have an account already?</ExtraText>
-                <TextLink>
+                <TextLink onPress={() => {navigation.navigate("SignUpScreen")}}>
                   <TextLinkContent>Signup</TextLinkContent>
                 </TextLink>
               </ExtraView>
