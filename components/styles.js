@@ -41,3 +41,15 @@ export const PageTitle = styled.Text`
   color: ${brand};
   padding: 10px;
 `;
+
+export const SubTitle = styled.Text`
+  font-size: 18px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: ${tertiary};
+`;
+
+export const StyledFormArea = styled.View`
+  width: 90%;
+`;
