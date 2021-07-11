@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Ionicons, Octicons, Fontisto } from '@expo/vector-icons';
 import {
   ButtonText,
-  Colors, ExtraText,
+  Colors, ExtraText, ExtraView,
   InnerContainer,
   LeftIcon, Line, MessageBox,
   PageLogo,
@@ -65,12 +65,12 @@ const Login = () => {
             </StyledButton>
             <Line />
 
-            <ExtraText>
+            <ExtraView>
               <ExtraText>Don't have an account already?</ExtraText>
               <TextLink>
                 <TextLinkContent>Signup</TextLinkContent>
               </TextLink>
-            </ExtraText>
+            </ExtraView>
 
           </StyledFormArea>}
         </Formik>
