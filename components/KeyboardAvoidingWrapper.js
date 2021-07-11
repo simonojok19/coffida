@@ -1,11 +1,19 @@
 import React from 'react';
-import { Keyboard, KeyboardAvoidingView, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { Colors } from './styles';
 
 const KeyboardAvoidingWrapper = ({children}) => {
   return (
-    <KeyboardAvoidingView style={{flex: 1}}>
+    <KeyboardAvoidingView>
       <ScrollView style={{flex: 1}}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex: 1}}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           {children}
         </TouchableWithoutFeedback>
       </ScrollView>
