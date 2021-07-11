@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Login from './screens/Login';
+import RootStack from './navigation/RootStack';
 
 export default function App() {
   return (
-    <Login/>
+    <RootStack/>
   );
 }
