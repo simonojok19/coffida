@@ -1,20 +1,19 @@
 import styled from 'styled-components';
-import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
-  primary: "#ffffff",
-  secondary: "#e5e7eb",
-  tertiary: "#1f2937",
-  darkLight: "#9ca3af",
-  brand: "#6d28d9",
-  green: "#10b981",
-  red: "#ef4444"
+  primary: '#ffffff',
+  secondary: '#e5e7eb',
+  tertiary: '#1f2937',
+  darkLight: '#9ca3af',
+  brand: '#6d28d9',
+  green: '#10b981',
+  red: '#ef4444',
 };
 
-const {primary, secondary, tertiary, darkLight, brand, green, red} = Colors;
+const { primary, secondary, tertiary, darkLight, brand, green, red } = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;

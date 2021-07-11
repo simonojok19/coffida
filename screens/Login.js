@@ -1,5 +1,5 @@
 import React from 'react';
-import {Octicons} from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 import {
   Colors,
   InnerContainer,
@@ -7,7 +7,9 @@ import {
   PageLogo,
   PageTitle,
   StyledContainer,
-  StyledFormArea, StyledInputLabel, StyledTextInput,
+  StyledFormArea,
+  StyledInputLabel,
+  StyledTextInput,
   SubTitle,
 } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
@@ -28,16 +30,27 @@ const Login = () => {
             console.log(values);
           }}
         >
-          {({handleChange, handleBlur, handleSubmit, values}) => <StyledFormArea>
+          {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
             <MyTextInput
-              label="Email Address"
-              icon="mail"
-              placeholder="johndoe@example.com"
+              label='Email Address'
+              icon='mail'
+              placeholder='johndoe@example.com'
               placeholderTextColor={Colors.darkLight}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
-              keyboardType="email-address"
+              keyboardType='email-address'
               value={values.email}
+            />
+
+            <MyTextInput
+              label='Password'
+              icon='lock'
+              placeholder='* * * * * * * *'
+              placeholderTextColor={Colors.darkLight}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              secureTextEntry={true}
             />
           </StyledFormArea>}
         </Formik>
@@ -46,13 +59,13 @@ const Login = () => {
   );
 };
 
-const MyTextInput = ({label, icon, ...props}) => {
+const MyTextInput = ({ label, icon, ...props }) => {
   return (<View>
-    <LeftIcon>
-      <Octicons name={icon} size={30} color={Colors.brand}/>
-    </LeftIcon>
     <StyledInputLabel>{label}</StyledInputLabel>
+    <LeftIcon>
+      <Octicons name={icon} size={30} color={Colors.brand} />
+    </LeftIcon>
     <StyledTextInput {...props} />
-  </View>)
-}
+  </View>);
+};
 export default Login;
