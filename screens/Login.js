@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Ionicons, Octicons } from '@expo/vector-icons';
+import { Ionicons, Octicons, Fontisto } from '@expo/vector-icons';
 import {
   ButtonText,
   Colors,
   InnerContainer,
-  LeftIcon,
+  LeftIcon, Line, MessageBox,
   PageLogo,
   PageTitle,
   RightIcon,
@@ -59,9 +59,16 @@ const Login = () => {
               hidePassword={hidePassword}
               setHidePassword={setHidePassword}
             />
+            <MessageBox>...</MessageBox>
             <StyledButton onPress={handleSubmit}>
               <ButtonText>Login</ButtonText>
             </StyledButton>
+            <Line />
+            <StyledButton onPress={handleSubmit} google={true}>
+              <Fontisto name="google" color={Colors.primary} size={25} />
+              <ButtonText google={true}>Sign in with Google</ButtonText>
+            </StyledButton>
+
           </StyledFormArea>}
         </Formik>
       </InnerContainer>

@@ -93,11 +93,19 @@ export const StyledButton = styled.TouchableOpacity`
   margin-top: 5px;
   margin-bottom: 5px;
   height: 60px;
+  ${(props) => props.google === true && `
+  background-color: ${green};
+  flex-direction: row;
+  justify-content: center;
+  `}
 `;
 
 export const ButtonText = styled.Text`
   color: ${primary};
   font-size: 16px;
+  ${(props) => props.google === true && `
+  padding-left: 25px;
+  `}
 `;
 
 export const MessageBox = styled.Text`
