@@ -26,6 +26,7 @@ import { Formik } from 'formik';
 import { ActivityIndicator, View } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import axios from 'axios';
+import Config from '../Config';
 
 const Login = ({navigation}) => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -33,17 +34,24 @@ const Login = ({navigation}) => {
   const [messageType, setMessageType] = useState();
 
   const handleLogin = (credentials, setSubmitting) => {
-    axios.post(Config.URL, credentials)
+    axios.post(`${Config.URL}/user/login`, credentials)
       .then((response) => {
         const result = response.data;
         const {user_id, session_token} = result
-        navigation.navigate("HOMESCREEN")
+        navigation.navigate("HomeScreen")
         setSubmitting(false)
       })
       .catch(error => {
-        console.log(error.JSON())
+        if (error.response) {
+          if (error.response.status === 400) {
+            handleMessage("Email or Password doesn't match")
+          } else if (error.response.status === 500) {
+            handleMessage("Service Not Available Now")
+          }
+        } else {
+          handleMessage("No Internet")
+        }
         setSubmitting(false)
-        handleMessage("An error occurred")
       })
   }
 
