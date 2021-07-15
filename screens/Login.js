@@ -23,11 +23,34 @@ import {
 } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import axios from 'axios';
 
 const Login = ({navigation}) => {
   const [hidePassword, setHidePassword] = useState(true);
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  const handleLogin = (credentials, setSubmitting) => {
+    axios.post(Config.URL, credentials)
+      .then((response) => {
+        const result = response.data;
+        const {user_id, session_token} = result
+        navigation.navigate("HOMESCREEN")
+        setSubmitting(false)
+      })
+      .catch(error => {
+        console.log(error.JSON())
+        setSubmitting(false)
+        handleMessage("An error occurred")
+      })
+  }
+
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message)
+    setMessageType(type)
+  }
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -38,12 +61,16 @@ const Login = ({navigation}) => {
           <SubTitle>Account Login</SubTitle>
           <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={(values) => {
-              console.log(values);
-              navigation.navigate("HomeScreen")
+            onSubmit={(values, {setSubmitting}) => {
+              if (values.email === '' || values.password === '') {
+                handleMessage('Please fill all the  fields')
+                setSubmitting(false)
+              } else {
+                handleLogin(values, setSubmitting)
+              }
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
+            {({ handleChange, handleBlur, handleSubmit, values , isSubmitting}) => <StyledFormArea>
               <MyTextInput
                 label='Email Address'
                 icon='mail'
@@ -68,10 +95,13 @@ const Login = ({navigation}) => {
                 hidePassword={hidePassword}
                 setHidePassword={setHidePassword}
               />
-              <MessageBox>...</MessageBox>
-              <StyledButton onPress={handleSubmit}>
+              <MessageBox type={messageType}>{message}</MessageBox>
+              {!isSubmitting && <StyledButton onPress={handleSubmit}>
                 <ButtonText>Login</ButtonText>
-              </StyledButton>
+              </StyledButton>}
+              {isSubmitting && <StyledButton disabled={true}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </StyledButton>}
               <Line />
 
               <ExtraView>

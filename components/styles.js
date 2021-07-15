@@ -110,6 +110,7 @@ export const ButtonText = styled.Text`
 export const MessageBox = styled.Text`
   text-align: center;
   font-size: 13px;
+  color: ${props => props.type === 'SUCCESS' ? green : red};
 `;
 
 export const Line = styled.View`
