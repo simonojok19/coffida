@@ -22,7 +22,7 @@ import {
 } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import axios from 'axios';
 import Config from '../Config';
@@ -36,14 +36,15 @@ const SignUp = () => {
     axios.post(`${Config.URL}/user`, credentials)
       .then((response) => {
         const result = response.data;
-        const { user_id, session_token } = result;
-        console.log(user_id, session_token);
+        const { user_id } = result;
+        console.log(result)
+        console.log(user_id);
         setSubmitting(false);
       })
       .catch(error => {
         if (error.response) {
           if (error.response.status === 400) {
-            handleMessage('Email or Password doesn\'t match');
+            handleMessage('Email Already Taken');
           } else if (error.response.status === 500) {
             handleMessage('Service Not Available Now');
           }
@@ -79,12 +80,16 @@ const SignUp = () => {
                 || values.password2 === '') {
                 handleMessage('Please fill all the  fields');
                 setSubmitting(false);
-              } else {
+              } else if (values.password!== values.password2) {
+                handleMessage('Password do not match');
+                setSubmitting(false);
+              }
+              else {
                 handleSignup(values, setSubmitting);
               }
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
+            {({ handleChange, handleBlur, handleSubmit, values , isSubmitting}) => <StyledFormArea>
               <MyTextInput
                 label='First Name'
                 icon='person'
@@ -140,10 +145,13 @@ const SignUp = () => {
                 hidePassword={hidePassword}
                 setHidePassword={setHidePassword}
               />
-              <MessageBox />
-              <StyledButton onPress={handleSubmit}>
-                <ButtonText>Create Account</ButtonText>
-              </StyledButton>
+              <MessageBox type={messageType}>{message}</MessageBox>
+              {!isSubmitting && <StyledButton onPress={handleSubmit}>
+                  <ButtonText>Create Account</ButtonText>
+              </StyledButton>}
+              {isSubmitting && <StyledButton disabled={true}>
+                <ActivityIndicator size="large" color={Colors.primary} />
+              </StyledButton>}
               <Line />
 
               <ExtraView>
