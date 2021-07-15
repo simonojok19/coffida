@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Ionicons, Octicons, Fontisto } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import {
   ButtonText,
-  Colors, ExtraText, ExtraView,
+  Colors,
+  ExtraText,
+  ExtraView,
   InnerContainer,
-  LeftIcon, Line, MessageBox,
-  PageLogo,
+  LeftIcon,
+  Line,
+  MessageBox,
   PageTitle,
   RightIcon,
   StyledButton,
@@ -13,15 +16,48 @@ import {
   StyledFormArea,
   StyledInputLabel,
   StyledTextInput,
-  SubTitle, TextLink, TextLinkContent,
+  SubTitle,
+  TextLink,
+  TextLinkContent,
 } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
 import { View } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import axios from 'axios';
+import Config from '../Config';
 
 const SignUp = () => {
   const [hidePassword, setHidePassword] = useState(true);
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  const handleSignup = (credentials, setSubmitting) => {
+    axios.post(`${Config.URL}/user`, credentials)
+      .then((response) => {
+        const result = response.data;
+        const { user_id, session_token } = result;
+        console.log(user_id, session_token);
+        setSubmitting(false);
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 400) {
+            handleMessage('Email or Password doesn\'t match');
+          } else if (error.response.status === 500) {
+            handleMessage('Service Not Available Now');
+          }
+        } else {
+          handleMessage('No Internet');
+        }
+        setSubmitting(false);
+      });
+  };
+
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
+  };
   return (
     <KeyboardAvoidingWrapper>
       <StyledContainer>
@@ -34,11 +70,18 @@ const SignUp = () => {
               last_name: '',
               first_name: '',
               email: '',
-              password1: '',
-              password2: ''
+              password: '',
+              password2: '',
             }}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={(values, { setSubmitting }) => {
+              if (values.last_name === '' || values.first_name === ''
+                || values.email === '' || values.password === ''
+                || values.password2 === '') {
+                handleMessage('Please fill all the  fields');
+                setSubmitting(false);
+              } else {
+                handleSignup(values, setSubmitting);
+              }
             }}
           >
             {({ handleChange, handleBlur, handleSubmit, values }) => <StyledFormArea>
@@ -76,9 +119,9 @@ const SignUp = () => {
                 icon='lock'
                 placeholder='* * * * * * * *'
                 placeholderTextColor={Colors.darkLight}
-                onChangeText={handleChange('password1')}
-                onBlur={handleBlur('password1')}
-                value={values.password1}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
                 secureTextEntry={hidePassword}
                 isPassword={true}
                 hidePassword={hidePassword}
@@ -97,7 +140,7 @@ const SignUp = () => {
                 hidePassword={hidePassword}
                 setHidePassword={setHidePassword}
               />
-              <MessageBox/>
+              <MessageBox />
               <StyledButton onPress={handleSubmit}>
                 <ButtonText>Create Account</ButtonText>
               </StyledButton>

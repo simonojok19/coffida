@@ -38,6 +38,7 @@ const Login = ({navigation}) => {
       .then((response) => {
         const result = response.data;
         const {user_id, session_token} = result
+        console.log(user_id, session_token)
         navigation.navigate("HomeScreen")
         setSubmitting(false)
       })
